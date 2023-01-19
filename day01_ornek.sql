@@ -1,0 +1,1 @@
+-- file kaydi örnegi
