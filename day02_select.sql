@@ -11,6 +11,8 @@ WHERE kosul;
 -- WHERE -- hangi satirlari(record) getirsin
 =========================================================================================*/
 
+use sys;
+
 CREATE TABLE meslek_lisesi (
 okul_no CHAR(4) UNIQUE,
 isim VARCHAR(50) NOT NULL,
@@ -44,3 +46,161 @@ WHERE derece<80;
 SELECT isim, derece
 FROM meslek_lisesi
 WHERE adres='Ankara';
+
+-- Q4 : okul_no´su 1005 olan ogrencinin isim ve adres bilgisini listeleyin.
+SELECT isim, adres
+FROM meslek_lisesi
+WHERE okul_no='1005';
+
+-- Q5 : derecesi 70 ile 80 arasi olan ogrencilerin okul_no ve adreslerini listeleyin
+SELECT okul_no, adres
+FROM meslek_lisesi
+WHERE 70<derece AND derece<80;
+
+-- *************************************************************************
+CREATE TABLE ogretmen_lisesi(
+id int,
+isim VARCHAR(45),
+adres VARCHAR(100),
+sinav_notu DOUBLE
+);
+INSERT INTO ogretmen_lisesi VALUES (111, 'Emine Yucel', 'Ankara', 75);
+INSERT INTO ogretmen_lisesi VALUES (112, 'Muhammet Talha Kurt', 'Istanbul', 85);
+INSERT INTO ogretmen_lisesi VALUES (113, 'Ilhan Sahin', 'Ankara', 70);
+INSERT INTO ogretmen_lisesi VALUES (114, 'Kadir Corumlu', 'Corum', 90);
+INSERT INTO ogretmen_lisesi VALUES (115, 'Selman Kasabali', 'Ankara',70);
+INSERT INTO ogretmen_lisesi VALUES (116, 'Murat Aycicek', 'Izmir', 85);
+INSERT INTO ogretmen_lisesi VALUES (117, 'Tugba Ozsoy', 'Bolu', 85);
+
+SELECT * FROM ogretmen_lisesi;
+
+/*-------------------------------------------------------------------------
+Q1: Sinav notu 80'den buyuk olan ogrencilerin tum bilgilerini listeleyin.
+---------------------------------------------------------------------------*/
+select * 
+from ogretmen_lisesi
+where sinav_notu>80;
+
+/*-------------------------------------------------------------------------
+Q2: Adresi Ankara olan ogrencilerin isim ve adres bilgilerini listeleyin.
+---------------------------------------------------------------------------*/
+select isim, adres
+from ogretmen_lisesi
+where adres='Ankara';
+
+/*-------------------------------------------------------------------------
+Q3: id'si 114 olan ogrencilerin tum bilgilerini listeleyin.
+---------------------------------------------------------------------------*/
+select *
+from ogretmen_lisesi
+where id='114';
+
+/*================================== SELECT-BETWEEN =============================================
+BETWEEN iki mantiksal ifade ile tanimlayabilecegimiz durumlari tek komutla 
+yazabilme imkani verir, yazdigimiz iki sinirda araliga dahildir.
+-----Syntax-----
+SELECT field1,field2,...
+FROM table_name
+WHERE field_name 
+BETWEEN deger1 AND deger2;
+=========================================================================================*/
+/*==========================AND (ve) Operatoru kullanimi==================================
+=> And ile belirtilen sartlarin tamami gerceklesiyorsa o kayit listelenir,
+Sartlardan bir tanesi bile tutmazsa listelenmez.
+SELECT * FROM matematik WHERE sinav1 < 50  sinav2 < 50
+Bu ornekte hem sinav1 hem de sinav2 field'i 50'den kucuk olan kayitlar listelenecektir.
+/*==========================OR (veya) Operatoru kullanimi==================================
+=> Or ile belirtilen sartlardan en az biri gerceklesiyorsa o kayit listelenir,
+sartlardan hicbiri gerceklesmiyorsa o kayit listelenmez.
+SELECT * FROM matematik WHERE sinav1 < 50 OR sinav2 < 50
+Bu ornekte sinav1 veya sinav2 field'i 50'den kucuk olan kayitlar listelenecektir.
+=========================================================================================*/
+
+/*-------------------------------------------------------------------------
+Q4: Sinav notu 70'ten buyuk 80'den kucuk olan ogrencilerin tum bilgilerini listeleyin.
+---------------------------------------------------------------------------*/
+-- 1. yol+++++++++++++++++++++++
+select *
+from ogretmen_lisesi
+where sinav_notu 
+between 70 and 80;
+-- 2. yol+++++++++++++++++++++++
+select *
+from ogretmen_lisesi
+where sinav_notu>=70 and sinav_notu<=80; 
+
+/*-------------------------------------------------------------------------
+Q5: Muhammet Talha ve Murat arasinda olan ogrencilerin isimlerini listeleyin.
+---------------------------------------------------------------------------*/
+select *
+from ogretmen_lisesi
+where isim 
+between 'Muhammet Talha' and 'Murat';
+
+-- NOT : String ifadeleri BETWEEN komutu ile kiyaslamak istedigimizde bize
+-- sonucu ASCII degerlerine gore siralayarak gonderir.
+-- Stringler alfebetik siraya göre between´i yazilir. <=, >= dahil gibi islem yapar.
+/*-------------------------------------------------------------------------
+Q6: Ankara ile Corum arasinda olan ogrencilerin isimlerini listeleyin.
+---------------------------------------------------------------------------*/
+select isim, adres
+from ogretmen_lisesi
+where adres                    -- adres sirasina göre kaydi gösteriyor, bastan sona gidiyor
+between 'Ankara' AND 'Corum';  
+
+-- büyütec isareti > replace all yapilabiliyor. and -> AND e cevrilebiliyor.
+-- ****************************************************************************
+
+
+CREATE TABLE personel(
+id CHAR(5),
+isim VARCHAR(50),
+maas INT
+);
+INSERT INTO personel VALUES('10001','Ahmet Aslan',7000);
+INSERT INTO personel VALUES('10002','Mehmet Yilmaz',12000);
+INSERT INTO personel VALUES('10003','Meryem',7215);
+INSERT INTO personel VALUES('10004','Veli Han',5000);
+INSERT INTO personel VALUES('10005','Mustafa Ali',5500);
+INSERT INTO personel VALUES('10006','Ayse Can',5600);
+INSERT INTO personel VALUES('10010','Ayse',4700);
+INSERT INTO personel VALUES('10009','Ayse Cemile',4000);
+INSERT INTO personel VALUES('10008','Ayse Cano',4300);
+INSERT INTO personel VALUES('10007','Can Ayse',7700);
+INSERT INTO personel VALUES('10011','Yeliz Alina',12700);
+
+SELECT * FROM personel;
+/*-------------------------------------------------------------------------
+Q7: id'si 10005 ile 10009 arasinda olan personelin bilgilerini listele
+---------------------------------------------------------------------------*/
+select *
+from personel 
+where id
+between '10005' and '10009';  -- tabloya eklenis sirasina göre yukaridan asagi veriyor!
+
+/*-------------------------------------------------------------------------
+Q8: Ismi Mehmet Yilmaz ile Veli arasinda olan personel bilgilerini listeleyin
+---------------------------------------------------------------------------*/
+SELECT *
+FROM personel
+WHERE isim
+BETWEEN 'Mehmet Yilmaz' AND 'Veli';  
+
+/*-------------------------------------------------------------------------
+Q9: Ismi Ahmet ile Ayse Cano arasinda olan personel bilgilerini listeleyin
+---------------------------------------------------------------------------*/
+SELECT *
+FROM personel
+WHERE isim
+BETWEEN 'Ahmet' AND 'Ayse Cano';
+
+/*-------------------------------------------------------------------------
+Q10: Maasi 7000 ya da ismi Ayse olan personel id'lerini listeleyin
+---------------------------------------------------------------------------*/
+SELECT id, isim
+FROM personel
+WHERE maas = 7000 OR isim = 'Ayse';
+
+
+
+
