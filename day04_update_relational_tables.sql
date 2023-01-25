@@ -208,29 +208,22 @@ select * from mart_satislar;
 
 
 -- 1) Ismi hatice olan musterinin urun_id'sini 30,urun_isim'ini Ford yapin 
-
-update mart_satislar
-set urun_id = 30, urun_isim = 'Ford'
-where musteri_isim = 'Hatice';
+UPDATE mart_satislar
+SET urun_id = 30 , urun_isim = 'Ford'
+WHERE musteri_isim = 'Hatice';
 
 -- 2) Toyota marka araclara %10 indirim yapin 
-update mart_satislar
-set urun_fiyat = urun_fiyat * 0.9
-where urun_isim = 'Toyota';        -- sadece toyotalarin fiyati düsecek
+UPDATE mart_satislar
+SET urun_fiyat = urun_fiyat * 0.9
+WHERE urun_isim = 'Toyota';
 
--- 3) Ismi Ali olanlarin urun_fiyatlarini %15 artirin 
-
-update mart_satislar
-set urun_fiyat = urun_fiyat * 1.15
-where musteri_isim LIKE 'A%';          -- ismi A ile baslayan tüm isimler dedik
+-- 3) Ismi A ile baslayan butun musterilerin urun_fiyatlarini %15 artirin 
+UPDATE mart_satislar
+SET urun_fiyat = urun_fiyat * 1.15
+WHERE musteri_isim LIKE 'a%';       -- like case sensitiv degil
 
 -- 4) Honda araclarin urun id'sini 50 yapin.
+UPDATE mart_satislar
+SET urun_id = 50
+WHERE urun_isim = 'Honda';
 
-update mart_satislar
-set urun_id = 50
-where urun_isim = 'Honda';
-
-
-
-
- 
