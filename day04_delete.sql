@@ -9,6 +9,8 @@ Eger tum kayitlar silindikten sonra tabloyu gormek isterseniz size sadece bos bi
 gosterir. 
 DELETE komutu sadece datalari siler, tabloyu silmez.
 =======================================================================================*/
+
+use sys;
 DELETE FROM mart_satislar;
 SELECT * FROM mart_satislar;
 /*===============================================================================================
@@ -24,7 +26,6 @@ SELECT * FROM mart_satislar;
 --    ROLLBACK TO  ABC;  -- Silinen Verileri geri getir.
 -- Bilgileri geri getirirken sikinti yasamamak icin ayarlar sql execution auto commit tiki kaldir
 ==================================================================================================*/ 
-use sys;
 CREATE TABLE cucuklar
 (
 id char(3),
@@ -50,15 +51,13 @@ WHERE veli_isim IN ('Ali', 'Ayse');
 DELETE FROM cucuklar
 WHERE yazili_notu > 84;
 
--- Yazili notu 85'ten farkli olan cocuklari silin (her 3 cevap da dogrudur)
+-- Yazili notu 85'ten farkli olan cocuklari silin 
 DELETE FROM cucuklar
 WHERE NOT yazili_notu = 85;
 DELETE FROM cucuklar
 WHERE yazili_notu != 85;
 DELETE FROM cucuklar
 WHERE yazili_notu <> 85;
-
-
 -- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 CREATE TABLE cocuk
     (
@@ -67,7 +66,7 @@ CREATE TABLE cocuk
         veli_isim VARCHAR(50),
         yazili_notu int       
     );
-  
+ drop table cocuk; 
     INSERT INTO cocuk VALUES(123, 'Ali Can', 'Hasan',75);
     INSERT INTO cocuk VALUES(124, 'Merve Gul', 'Ayse',85);
     INSERT INTO cocuk VALUES(125, 'Kemal Yasa', 'Hasan',85);
@@ -82,5 +81,3 @@ DELETE FROM cocuk
 WHERE id>124; -- Bu satirda belli sartlari saglayan verileri sildik.
 
 ROLLBACK TO CICEK; -- Bu satirda ise sildigimiz verileri kaydettigimiz alandan geri cagirdik.
-
-
