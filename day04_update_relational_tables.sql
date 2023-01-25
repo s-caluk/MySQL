@@ -136,27 +136,47 @@ set grade = (select yazili_notu
 			 from puanlar 
              where cocuklar.id = puanlar.ogrenci_id);
 
-
 /*-------------------------------------------------------------------------
 6) Ismi Kemal Yasa olan ogrencinin grade'ini puanlar tablosundaki 
 ogrenci id'si 128 olan yazili notu ile update edin. 
 --------------------------------------------------------------------------*/
+
+update cocuklar
+set grade = (select yazili_notu from puanlar where ogrenci_id = 128)
+where isim = 'Kemal Yasa';
+
 /*-------------------------------------------------------------------------
 7) Ders adi fizik olan kayitlarin yazili notunu Oguz Karaca'nin grade'i
 ile update edin. 
 --------------------------------------------------------------------------*/
+
+update puanlar
+set yazili_notu=(select grade from cocuklar where isim='Oguz Karaca')
+where ders_adi='fizik';
+
 /*-------------------------------------------------------------------------
 8) Ali Can'in grade'ini, 124 ogrenci_id'li yazili_notu ile guncelleyin.
 --------------------------------------------------------------------------*/
+UPDATE cocuklar
+SET grade =(select yazili_notu from puanlar where ogrenci_id='124')
+WHERE isim='Ali Can';
 /*-------------------------------------------------------------------------
 9) Ders adi Kimya olan yazili notlarini Rumeysa Aydin'in 
 grade'i ile guncelleyin.
 --------------------------------------------------------------------------*/
+update puanlar
+set yazili_notlari (select grade from cocuklar where isim='Rumeysa Aydin' )
+where ders_adi='Kimya';
+
 /*-------------------------------------------------------------------------
 10) Ders adi tarih olan yazili notlarini Resul Can'in 
 grade'i ile guncelleyin.
 -------------------------------------------------------------------------*/
-
+UPDATE puanlar
+SET yazili_notu = (select grade
+			       from cocuklar
+				   where isim='Resul Can')
+WHERE ders_adi='tarih';
 
 
 
