@@ -207,6 +207,28 @@ INSERT INTO mart_satislar VALUES (20, 'Hatice', 'Toyota',60000);
 select * from mart_satislar;
 
 
+-- 1) Ismi hatice olan musterinin urun_id'sini 30,urun_isim'ini Ford yapin 
+
+update mart_satislar
+set urun_id = 30, urun_isim = 'Ford'
+where musteri_isim = 'Hatice';
+
+-- 2) Toyota marka araclara %10 indirim yapin 
+update mart_satislar
+set urun_fiyat = urun_fiyat * 0.9
+where urun_isim = 'Toyota';        -- sadece toyotalarin fiyati düsecek
+
+-- 3) Ismi Ali olanlarin urun_fiyatlarini %15 artirin 
+
+update mart_satislar
+set urun_fiyat = urun_fiyat * 1.15
+where musteri_isim LIKE 'A%';          -- ismi A ile baslayan tüm isimler dedik
+
+-- 4) Honda araclarin urun id'sini 50 yapin.
+
+update mart_satislar
+set urun_id = 50
+where urun_isim = 'Honda';
 
 
 
