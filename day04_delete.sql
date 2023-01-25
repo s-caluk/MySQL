@@ -82,3 +82,5 @@ DELETE FROM cocuk
 WHERE id>124; -- Bu satirda belli sartlari saglayan verileri sildik.
 
 ROLLBACK TO CICEK; -- Bu satirda ise sildigimiz verileri kaydettigimiz alandan geri cagirdik.
+
+
