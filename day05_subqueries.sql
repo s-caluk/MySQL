@@ -157,3 +157,4 @@ SELECT sirket, personel_sayisi, (SELECT SUM(maas)
                                  FROM personel
                                  WHERE sirketler.sirket = personel.sirket)top_maas
 FROM sirketler;
+
