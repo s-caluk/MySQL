@@ -19,6 +19,7 @@ INSERT INTO mayis_satislar VALUES (20, 'Mark', 'Toyota');
 INSERT INTO mayis_satislar VALUES (10, 'Adem', 'Honda');
 INSERT INTO mayis_satislar VALUES (40, 'John', 'Hyundai');
 INSERT INTO mayis_satislar VALUES (20, 'Eddie', 'Toyota');
+
 CREATE TABLE nisan_satislar
 (
 urun_id int,
@@ -30,6 +31,7 @@ INSERT INTO nisan_satislar VALUES (10, 'Kemal', 'Honda');
 INSERT INTO nisan_satislar VALUES (20, 'Ayse', 'Toyota');
 INSERT INTO nisan_satislar VALUES (50, 'Yasar', 'Volvo');
 INSERT INTO nisan_satislar VALUES (20, 'Mine', 'Toyota');
+
 select*from mayis_satislar;
 select*from nisan_satislar;
 /*----------------------------------------------------------------
@@ -47,16 +49,18 @@ FROM mayis_satislar
 WHERE EXISTS (SELECT urun_id
               FROM nisan_satislar
               WHERE mayis_satislar.urun_id = nisan_satislar.urun_id);
+              
 /*----------------------------------------------------------------
-SORU 2 : Her iki ayda da satilan urun_isimleri ayni urunlerin,
-urun_isim'ini ve urunleri nisan ayinda alan musterilerin isimlerini 
+SORU 2 : Her iki ayda da satilan "urun_isimleri" ,
+ve bu urun_isim'lerini nisan ayinda satin alan "musterilerin isim"lerini 
 getiren bir Query yaziniz.
 ----------------------------------------------------------------*/ 
 SELECT urun_isim, musteri_isim
 FROM nisan_satislar
-WHERE EXISTS (SELECT urun_isim
+WHERE EXISTS (SELECT urun_isim      -- !exists ya da not exists ile de deneyebilirsin. calisir.
               FROM mayis_satislar
               WHERE mayis_satislar.urun_isim = nisan_satislar.urun_isim);
+              
 /*----------------------------------------------------------------
 SORU 3 : Nisan ayinda satilip mayis ayinda satilmayan urun ismini ve
 satin alan kisiyi listeleyen bir QUERY yaziniz.
