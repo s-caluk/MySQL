@@ -57,3 +57,65 @@ SELECT isim, SUM(urun_miktar) AS top_kg
 FROM manav
 GROUP BY isim  -- ürün miktarini neye göre toplayacak? isme göre gruplasin diyoruz
 ORDER BY isim;
+
+-- 2) isme göre alinan urunlerin toplam kilosunu bulup, isim sirasina göre "ters" siralayin
+
+SELECT isim, SUM(urun_miktar) AS top_kg
+FROM manav
+GROUP BY isim           -- bu gruplandiriyor 
+ORDER BY isim desc;     -- bu siraliyor
+
+-- 3) Bunlari bir de toplam kiloya gore ters sirali yapalim
+
+SELECT isim, SUM(urun_miktar) AS top_kg
+FROM manav
+GROUP BY isim
+ORDER BY top_kg DESC;
+
+-- 4) Urun ismine gore, urunu alan toplam kisi sayisini, (yani elma - 5 , armut - 4 kisi almis) 
+-- kisi sayisina gore siralayiniz. 
+
+select urun_adi, count(isim) AS kisi_sayisi   -- AS ´i yazmasanda oluyor
+from manav                                    -- sayilacaksa count , toplanacaksa sum kullanilir.
+group by urun_adi 
+order by kisi_sayisi;
+
+-- 5) Alinan kilo miktarina gore musteri sayisini listeleyiniz.(1 kilo alisveris yapan kac kisi var?)
+
+select urun_miktar, count(urun_miktar) kisi_sayisi
+from manav
+group by urun_miktar
+order by urun_miktar;
+
+-- 6) Satilan meyve turune (urun_adi) gore urun alan kisi sayisini
+-- NATURAL ORDER'a gore gosteren QUERY yaziniz.
+-- NULL olarak girilen meyveyi listelemesin.
+
+SELECT urun_adi,count(isim) AS kisi_sayisi
+FROM manav
+WHERE urun_adi !='null'      -- where urun_adi is NOT NULL , ayni islevi yapar
+GROUP BY urun_adi
+ORDER BY kisi_sayisi ;
+
+-- 7) Satilan meyvenin 4 harfli olmasina (urun_adi) gore urun alan kisi sayisini,
+-- urun_adi NATURAL ORDER'a gore gosteren QUERY yaziniz.
+-- NULL olarak girilen meyveyi listelemesin.
+
+SELECT urun_adi,count(isim) AS kisi_sayisi
+FROM manav
+WHERE urun_adi like '____'
+GROUP BY urun_adi
+ORDER BY urun_adi ;
+
+
+-- 8) Satilan meyve turune (urun_adi) gore satilan (urun_miktari)
+-- MIN ve MAX urun miktarlarini, MAX urun miktarina gore siralayarak
+-- listeleyen OUERY yaziniz.
+-- NULL olarak girilen meyveyi listelemesin.
+
+select urun_adi, max(urun_miktar) max_kg, min(urun_miktar) min_kg
+from manav
+where urun_adi is not null
+group by urun_adi
+ORDER BY max_kg desc;
+
