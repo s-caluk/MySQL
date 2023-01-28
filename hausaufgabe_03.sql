@@ -60,37 +60,132 @@ INSERT INTO Title
  SELECT * FROM TITLE;
  
  
- -- Q-12. Write an SQL query to print all Worker details from the Worker table 
- -- order by FIRST_NAME Ascending 
+ 
+ -- Q-12. Write an SQL query to print all Worker details from the Worker table
+ -- order by FIRST_NAME Ascending
  -- and DEPARTMENT Descending.
- 
- 
-
+ select * 
+ from worker
+ order by (FIRST_NAME) asc, (DEPARTMENT) desc;
+  
  -- Q-13. Write an SQL query to print details for Workers with the first name as “Vipul” and “Satish” 
  -- from Worker table.
  
+ select *
+ from worker
+ where FIRST_NAME in ('Vipul','Satish');
  
  -- Q-16. Write an SQL query to print details of the Workers whose FIRST_NAME contains ‘a’.
  
  select *
- from worker 
+ from worker
  where FIRST_NAME like '%a%';
+  
+ -- Q-18. Write an SQL query to print details of the Workers whose 
+ -- FIRST_NAME ends with ‘h’ and contains six alphabets.
  
- -- Q-18. Write an SQL query to print details of the Workers 
- -- whose FIRST_NAME ends with ‘h’ and contains six alphabets.
+ select *
+ from worker
+ where first_name like  '_____h';
  
-  select *
- from worker 
- where FIRST_NAME like '_____h';
- 
+  
  -- Q-20. Write an SQL query to print details of the Workers who have joined in Feb’2014.
+ 
+ select *
+ from worker
+ where JOINING_DATE like '2014-02%';
+ 
  
  
  -- Q-22. Write an SQL query to fetch worker names with salaries >= 50000 and <= 100000.
+ -- maasa gore en yuksek maastan itibaren olacak sekilde yazdirin.
+ 
+ select first_name, last_name, salary
+ from worker
+ where salary between 50000 and 100000
+ order by salary  desc ;
+ 
+  
  
  
  -- Q-26. Write an SQL query to show only odd rows from a table.;
  
+ select * 
+ from worker
+ where mod (worker_id,2) <> 0;
  
+  
  -- Q-27. Write an SQL query to show only even rows from a table.
+
+  select * 
+ from worker
+ where mod (worker_id,2) = 0;
+ 
+ 
+ -- personel ismi ve tolam aldigi bonus miktarini yazdir.
+ 
+ select first_name,(select sum(bonus_amount)
+					from bonus
+                    where worker.worker_id= bonus.worker_ref_id) as toplam_bonus
+ from worker;
+ 
+ 
+ -- bonus alanlara gore kisilerin unvanlari yazdirin
+ select bonus_amount ,(select  worker_title
+							from title
+							where  bonus.worker_ref_id=title.worker_ref_id) as unvan
+from bonus;                        
+ 
+ 
+ -- worker id 'si 5'den buyuk olan isclierin maaslarini ve worker_title listeleyiniz
+ 
+ select worker_id,salary ,(select worker_title 
+				from title
+                where  worker.worker_id=title.worker_ref_id) as unvan
+from worker
+where worker_id>5
+order by salary desc;                
+ 
+ 
+
+-- gorevi yeri account olan isciniin  id, ismi ,soysimi, worker_title  ve katilim tarihini
+
+
+select worker_id, first_name, last_name, joining_date,(select worker_title 
+												from title
+                                                where worker.worker_id=title.worker_ref_id) as unvan
+from worker
+where department='account';                                                
+
+
+
+ 
+-- Monika isimli personelin calistigi sirketin department ve unvanini ve varsa bonus miktarini yazdirin
+
+select first_name,department,(select worker_title 
+							 from title
+							 where  worker.worker_id=title.worker_ref_id) as unvan,
+                             (select sum(bonus_amount)
+                             from bonus
+                             where worker.worker_id=bonus.worker_ref_id
+                             group by worker_ref_id) as total_bonus
+from worker
+where First_name='vipul';       
+                        
+                        
+select worker_ref_id, sum(bonus_amount)
+
+from bonus
+group by worker_ref_id;                      
+
+
+
+--  lead lerin isimlerini maas miktarini azalan sekilde yazdiran
+
+select first_name,last_name,salary,(select worker_title from title where title.worker_ref_id= worker.worker_id) as unvan
+from worker
+where worker_id in(select worker_ref_id 
+				from title
+                where worker_title='lead')
+order by salary desc;
  
