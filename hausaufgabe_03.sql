@@ -93,3 +93,4 @@ INSERT INTO Title
  
  
  -- Q-27. Write an SQL query to show only even rows from a table.
+ 
