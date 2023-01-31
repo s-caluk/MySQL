@@ -1,3 +1,5 @@
+
+
 /*==================================SELECT-WHERE=============================================
 Verileri SELECT komutu ile veritabanindan cekerken filtreleme yapmak icin : 
  
