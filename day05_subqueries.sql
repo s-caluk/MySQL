@@ -31,7 +31,7 @@ INSERT INTO sirketler VALUES(101, 'Ford', 18000);
 INSERT INTO sirketler VALUES(102, 'Hyundai', 10000);
 INSERT INTO sirketler VALUES(103, 'Toyota', 21000);
 SELECT * FROM personel;
-SELECT * FROM sirketler;
+SELECT * FROM sirketler;personel
 
 
 -- ======================== WHERE ile SUBQUERY ===========================
