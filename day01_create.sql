@@ -5,6 +5,7 @@
 /*
 burasi yorum 
 pragrafi örnegi
+kursorlu simsegi calistirirsan , kursorun önündeki kodu calistir demek oluyor.
 */
 
 use sys;
@@ -16,14 +17,14 @@ use sys;
 -- fieldlari iceren bir ogrenciler table'i olusturunuz.
 
 CREATE TABLE ogrenciler1( 
-id CHAR(4),
-isim VARCHAR(25),
-not_ortalamasi DOUBLE,
+id CHAR(4),              -- 2 karakter girsen bile , 4 karakterlik yer kaplar
+isim VARCHAR(25),        -- varchar´in chardan farki, kac karakter girersen (10 , 15) o kadar yer kaplar.
+not_ortalamasi DOUBLE,   -- camel case degil, snake case kullanilir isimlendirmede.
 adress VARCHAR(100),
 son_degistirme_tarihi DATE 
 );
 
-DROP TABLE ogrenciler2;
+DROP TABLE ogrenciler1;    -- codu silince tablo silinmez, drop ile tabloyu silersin, create table ile tekrar olusturursun.
 
 SELECT * FROM ogrenciler1;
 
@@ -40,6 +41,10 @@ tedarikci_ismi VARCHAR(25),
 tedarikci_adres VARCHAR(100),
 ulasim_tarihi DATE
 );
+
+select * from tedarikciler;
+
+drop table tedarikciler;
 
 /*========================================
     VAROLAN TABLODAN TABLO OLUSTURMA  
